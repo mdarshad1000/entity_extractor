@@ -50,6 +50,7 @@ def extract_text_from_pdf(pdf_path):
     return text
 
 
+# Structure Output Response Extractor using OpenAI and Pydantic 
 def structured_ouput_extractor(data):
     completion = client.beta.chat.completions.parse(
         model="gpt-4o-2024-08-06",
@@ -61,6 +62,29 @@ def structured_ouput_extractor(data):
     )
     response = completion.choices[0].message.parsed
     return response
+
+# Helper function to print Pydantic Response in a pretty format
+def print_structured_response(invoice, indent=0):
+    def print_nested(data, indent):
+        if isinstance(data, BaseModel):
+            data = data.dict()
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if isinstance(value, (dict, BaseModel)):
+                    print(' ' * indent + str(key) + ":")
+                    print_nested(value, indent + 4)
+                elif isinstance(value, list):
+                    print(' ' * indent + str(key) + ":")
+                    for i, item in enumerate(value, start=1):
+                        print(' ' * (indent + 4) + f"Item {i}:")
+                        print_nested(item, indent + 8)
+                else:
+                    print(' ' * indent + str(key) + ":", str(value))
+        else:
+            print(' ' * indent + str(data))
+
+    print_nested(invoice, indent)
+
 
 def json_output_extractor(system_prompt, user_prompt, data):
     completion = client.chat.completions.create(
@@ -77,17 +101,18 @@ def json_output_extractor(system_prompt, user_prompt, data):
     res = json.loads(response)
     return res
 
-def print_dict(d, indent=0):
+# helper function to print the output in a pretty format
+def print_json_response(d, indent=0):
     for key, value in d.items():
         if isinstance(value, dict):
             print(' ' * indent + str(key) + ":")
-            print_dict(value, indent + 4)
+            print_json_response(value, indent + 4)
         elif isinstance(value, list):
             print(' ' * indent + str(key) + ":")
             for i, item in enumerate(value, start=1):
                 print(' ' * (indent + 4) + f"Item {i}:")
                 if isinstance(item, dict):
-                    print_dict(item, indent + 8)
+                    print_json_response(item, indent + 8)
                 else:
                     print(' ' * (indent + 8) + str(item))
         else:

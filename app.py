@@ -1,30 +1,22 @@
-from utils import extract_text_from_pdf, structured_ouput_extractor, json_output_extractor, print_dict
+from utils import extract_text_from_pdf, structured_ouput_extractor, json_output_extractor, print_structured_response, print_json_response
 from prompts import system_prompt, user_prompt
 
-
-pdf_path = "sample.pdf"
+# load the PDF file
+pdf_path = "data/sample.pdf"
 text = extract_text_from_pdf(pdf_path)
+
+# Extract Key information using the latest Structured Output by OpenAI
 data = structured_ouput_extractor(text)
 
-# Print customer details
-print("Name:", data.customer_details.name)
-print("Address:", data.customer_details.address)
-print("Phone:", data.customer_details.contact.phone)
-print("Email:", data.customer_details.contact.email)
-
-# Print total amount details
-print("Taxable Amount:", data.total_amount.taxable_amount)
-print("IGST:", data.total_amount.IGST)
-print("Round Off:", data.total_amount.round_off)
-print("TCS:", data.total_amount.TCS)
-print("Total:", data.total_amount.total)
-print("Amount Payable:", data.total_amount.amount_payable)
-
-# Print product details
-for index, product in enumerate(data.products, start=1):
-    print(f"Product {index} Name:", product.name)
-    print(f"Product {index} Quantity:", product.quantity)
-    print(f"Product {index} Price:", product.price)
-
+# Extract Key information using the Json Output by OpenAI
 data_2 = json_output_extractor(system_prompt, user_prompt, text)
-print_dict(data_2)
+
+
+# Print the extracted data by method 1
+print_structured_response(data)
+
+print()
+print()
+print()
+# Print the extracted data by method 2
+print_json_response(data_2)
