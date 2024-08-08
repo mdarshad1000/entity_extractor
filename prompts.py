@@ -11,9 +11,9 @@ user_prompt = """You are an AI assistant trained to extract structured informati
 - Relevance: Focus on extracting only the most essential details typically found in an invoice.
 - Accuracy: Ensure the extracted information is precise and corresponds directly to relevant sections of the text.
 - Structured Output: Provide the output in a JSON format with clear keys:
-  - CUSTOMER_DETAILS: Includes name, address, and contact information.
-  - PRODUCTS: A list of dictionaries with each product's name, quantity, and price.
-  - TOTAL_AMOUNT: The total payable amount, including taxes.
+  - customer_details: Includes name, address, and contact information.
+  - products: A list of dictionaries with each product's name, quantity, and price.
+  - total_amount: The total payable amount, including taxes.
 - Conciseness: Extract information in a brief, straightforward manner, avoiding unnecessary details.
 - Entity Identification: Correctly identify and categorize entities such as Customer Name, Product Name, Quantity, Price, and Total Amount.
 - Context Interpretation: Consider the layout and structure of the invoice to interpret and extract details accurately, even if they are not explicitly labeled.
