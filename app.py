@@ -1,4 +1,4 @@
-from utils import extract_text_from_pdf, structured_ouput_extractor, json_output_extractor, print_structured_response, print_json_response
+from utils import extract_text_from_pdf, structured_ouput_extractor, json_output_extractor, print_structured_response
 from prompts import system_prompt, user_prompt
 
 # load the PDF file
@@ -15,8 +15,5 @@ data_2 = json_output_extractor(system_prompt, user_prompt, text)
 # Print the extracted data by method 1
 print_structured_response(data)
 
-print()
-print()
-print()
 # Print the extracted data by method 2
-print_json_response(data_2)
+print(data_2)
