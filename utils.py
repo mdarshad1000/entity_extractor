@@ -4,7 +4,8 @@ import os
 from dotenv import load_dotenv
 from pydantic import BaseModel
 from typing import List
-import json
+from PIL import Image
+import pytesseract
 
 load_dotenv()
 
@@ -49,6 +50,11 @@ def extract_text_from_pdf(pdf_path):
         text += page.get_text()
     return text
 
+
+def extract_text_from_images(image_path):
+    image = Image.open(image_path)
+    text = pytesseract.image_to_string(image)
+    return text
 
 # Structure Output Response Extractor using OpenAI and Pydantic 
 def structured_ouput_extractor(data):
