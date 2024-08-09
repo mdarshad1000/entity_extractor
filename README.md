@@ -91,4 +91,38 @@ print(data)
   }
 }
 ```
-   
+  
+3. JSON RESPONSE FOR IMAGE (Structured Output Response can also be used for images)
+```python
+data = json_output_extractor(system_prompt, user_prompt, image)
+print(data)
+```
+
+#### OUTPUT
+```
+{
+  "CUSTOMER_DETAILS": {
+    "name": "TEST",
+    "billing_address": "Hyderabad, TELANGANA, 500089",
+    "contact_information": {
+      "phone": "9108239284",
+      "email": "test@gmail.com"
+    }
+  },
+  "PRODUCTS": [
+    {
+      "name": "WASTE AND SCRAP OF STAINLESS STEEL",
+      "quantity": "6,790 KGS",
+      "price": "6,45,050.00"
+    }
+  ],
+  "TOTAL_AMOUNT": {
+    "taxable_amount": "6,45,050.00",
+    "IGST": "1,16,109.00",
+    "round_off": "0.41",
+    "TCS": "27,611.50",
+    "total": "7,68,771.00",
+    "amount_in_words": "INR Seven Lakh, Sixty-Eight Thousand, Seven Hundred And Seventy-One Rupees Only"
+  }
+}
+```
